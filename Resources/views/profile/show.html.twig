@@ -1,0 +1,13 @@
+{% extends '@ScyLabsUserProfile/layout.html.twig' %}
+{% trans_default_domain 'ScyLabsUserProfileBundle' %}
+{% block content_profile %}
+    <ul class="cats">
+        <li>
+            <span class="name">
+                <i class="fa fa-user-circle"></i>
+                {{ 'profile.infos' | trans }}
+            </span>
+        </li>
+        {{ ScyLabs_showHook(_self,'scy_labs.user_profile_bundle') | raw }}
+    </ul>
+{% endblock %}

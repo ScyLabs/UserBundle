@@ -1,0 +1,13 @@
+{
+    "name": "alex/user-profile-bundle",
+    "description": "User front-profile bundle",
+    "authors": [
+        {
+            "name": "Alexandre Sciacca",
+            "email": "alexandre.sciacca@gmail.com"
+        }
+    ],
+    "require": {
+        "scylabs/neptune-bundle": "~1",
+    }
+}

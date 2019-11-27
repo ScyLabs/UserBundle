@@ -1,0 +1,58 @@
+#user-profile-container{
+  padding:5rem;
+  > .box{
+    padding:2rem;
+    border:1px solid #ededed;
+    h1{
+      margin-bottom: 3rem;
+    }
+    .register{
+      text-align: center;
+    }
+    .form{
+      max-width: 100rem;
+      margin:0 auto;
+      display: block;
+
+      .form-group{
+        display: flex;
+        &:not(:last-child){
+          margin-bottom: 2rem;
+        }
+        label{
+          font-size: 1.6rem;
+          min-width: 15rem;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          text-align: right;
+          margin-right: 3rem;
+        }
+        input{
+          height:3.6rem;
+          width: 100%;
+        }
+        .switchPassWord{
+          background: #999;
+          color:#fff;
+          text-transform: uppercase;
+          border:none;
+          letter-spacing: 1px;
+
+
+          &.active::before{
+            content:attr(data-showed);
+            display:block;
+          }
+          &:not(.active)::before{
+            content: attr(data-hidden);
+            display:block;
+          }
+        }
+
+
+      }
+
+    }
+  }
+}

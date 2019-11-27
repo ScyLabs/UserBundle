@@ -1,0 +1,30 @@
+{% extends "layout.html.twig" %}
+{% trans_default_domain 'ScyLabsUserProfileBundle' %}
+
+{% block content %}
+
+
+
+    <div id="user-profile-container">
+        <h1>{{  app.request.get('_route') | trans }}</h1>
+        <div class="box">
+
+            {% block content_profile %}
+                {% block fos_user_content %}
+                {% endblock fos_user_content %}
+            {% endblock %}
+        </div>
+    </div>
+
+
+{% endblock content %}
+{% block css %}
+    {% if app.environment == 'prod' %}
+        <link rel="stylesheet/less" href="{{ asset('bundles/scylabsuserprofile/css/user_profile.css') }}"/>
+    {% else %}
+        <link rel="stylesheet/less" href="{{ asset('bundles/scylabsuserprofile/css/user_profile.less') }}"/>
+        <script src="{{ asset('js/lib/less.min.js') }}"></script>
+        <script>less = { useFileCache: false }</script>
+    {% endif %}
+    <script src="{{ asset('bundles/scylabsuserprofile/js/user_profile.js') }}"></script>
+{% endblock %}
