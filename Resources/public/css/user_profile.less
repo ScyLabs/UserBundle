@@ -9,10 +9,48 @@
     .register{
       text-align: center;
     }
-    .form{
+    form{
       max-width: 100rem;
       margin:0 auto;
       display: block;
+
+      .passwordRequest{
+        display: block;
+        text-align: center;
+      }
+
+      input[type="submit"]{
+        padding:1rem 2rem;
+        font-size: 1.4rem;
+        text-transform: uppercase;
+        border:none;
+        display: block;
+        background: #2196F3;
+        color:#fff;
+        letter-spacing: 0.1em;
+        margin:1rem auto;
+        cursor: pointer;
+
+      }
+      #fos_user_registration_form > div , > div:not(#fos_user_registration_form){
+        label{
+          display: inline-block;
+          font-size: 1.6rem;
+          margin-bottom: 1rem;
+          margin-top: 1rem;
+
+        }
+        input:not([type="checkbox"]){
+          display: block;
+          height: 3.6rem;
+          width: 100%;
+        }
+        input[type="checkbox"]{
+          position: relative;
+          top:0.8em;
+          margin-left: 2rem;
+        }
+      }
 
       .form-group{
         display: flex;
@@ -38,6 +76,10 @@
           text-transform: uppercase;
           border:none;
           letter-spacing: 1px;
+          cursor: pointer;
+          &.active{
+            background: #2196F3;
+          }
 
 
           &.active::before{
@@ -55,4 +97,78 @@
 
     }
   }
+}
+.remember_group{
+  display: flex;
+  justify-content: flex-end;
+}
+#remember_me{
+  display: none;
+}
+#remember_me + label{
+  display: inline-block!important;
+  margin-right: 0!important;
+}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+label .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+label .text{
+  position: relative;
+  top:5px;
+}
+
+label .slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + label .slider {
+  background-color: #2196F3;
+}
+
+input:focus + label .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + label .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+label .slider.round {
+  border-radius: 34px;
+}
+
+label .slider.round:before {
+  border-radius: 50%;
 }
