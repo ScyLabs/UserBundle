@@ -11,7 +11,9 @@ namespace ScyLabs\UserProfileBundle\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
+use ScyLabs\GiftCodeBundle\Entity\Address;
 use ScyLabs\NeptuneBundle\Services\ClassFounder;
+use ScyLabs\UserProfileBundle\Form\EditUserType;
 use ScyLabs\UserProfileBundle\Model\NeptuneFrontVarsFounderInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -25,6 +27,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Yaml\Yaml;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security as Secure;
 
 class SecurityController extends \FOS\UserBundle\Controller\SecurityController
 {
@@ -108,6 +111,22 @@ class SecurityController extends \FOS\UserBundle\Controller\SecurityController
         ];
 
         return $this->renderLogin(array_merge($params,$neptuneFrontVarsFounder->getVars($request)));
+    }
+
+    /**
+     * @Route("/profile/edit",name="fos_user_profile_edit")
+     * @Secure("is_granted('ROLE_USER')")
+     */
+    public function edit(Request $request,NeptuneFrontVarsFounderInterface $neptuneFrontVarsFounder){
+
+        $form = $this->createForm(EditUserType::class,$this->getUser());
+
+        return $this->render('@ScyLabsUserProfile/profile/edit.html.twig',array_merge([
+            'form'  =>  $form->createView()
+        ],$neptuneFrontVarsFounder->getVars($request)));
+
+
+
     }
 
 }

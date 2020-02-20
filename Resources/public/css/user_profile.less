@@ -3,6 +3,41 @@
   > .box{
     padding:2rem;
     border:1px solid #ededed;
+
+    >.cats {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      > li {
+        width: 20rem;
+        position: relative;
+
+        &::before{
+          content:'';
+          display: block;
+          padding-top: 100%;
+          position: relative;
+        }
+        > a {
+          cursor: pointer;
+          position: absolute;
+          left:0.5rem;
+          top:0.5rem;
+          bottom:0.5rem;
+          right: 0.5rem;
+          border:1px solid #ededed;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          text-align: center;
+          i{
+            display: block;
+            font-size: 2.6rem;
+            margin-bottom: 1rem;
+          }
+        }
+      }
+    }
     h1{
       margin-bottom: 3rem;
     }

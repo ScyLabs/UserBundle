@@ -3,10 +3,12 @@
 {% block content_profile %}
     <ul class="cats">
         <li>
-            <span class="name">
-                <i class="fa fa-user-circle"></i>
-                {{ 'profile.infos' | trans }}
-            </span>
+            <a href="{{ path('fos_user_profile_edit') }}" class="name">
+                <span class="box">
+                    <i class="fa fa-user-circle"></i>
+                    {{ 'profile.infos' | trans }}
+                </span>
+            </a>
         </li>
         {{ ScyLabs_showHook(_self,'scy_labs.user_profile_bundle') | raw }}
     </ul>

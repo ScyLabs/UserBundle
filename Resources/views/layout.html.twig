@@ -3,10 +3,8 @@
 
 {% block content %}
 
-
-
     <div id="user-profile-container">
-        <h1>{{  app.request.get('_route') | trans }}</h1>
+        <h1>{% block title %}{{  app.request.get('_route') | trans }}{% endblock title %}</h1>
         <div class="box">
 
             {% block content_profile %}
@@ -19,12 +17,13 @@
 
 {% endblock content %}
 {% block css %}
-    {% if app.environment == 'prod' %}
-        <link rel="stylesheet/less" href="{{ asset('bundles/scylabsuserprofile/css/user_profile.css') }}"/>
-    {% else %}
-        <link rel="stylesheet/less" href="{{ asset('bundles/scylabsuserprofile/css/user_profile.less') }}"/>
-        <script src="{{ asset('js/lib/less.min.js') }}"></script>
-        <script>less = { useFileCache: false }</script>
-    {% endif %}
-    <script src="{{ asset('bundles/scylabsuserprofile/js/user_profile.js') }}"></script>
+    <link rel="stylesheet/less" href="{{ asset('bundles/scylabsuserprofile/css/user_profile.less') }}"/>
+    {{ ScyLabs_showHook(_self,'ScyLabsUserBundle.head_assets') | raw }}
+{% endblock %}
+{% block afterScriptLoader %}
+    scriptLoader.add({
+        src: "{{ asset('bundles/scylabsuserprofile/js/user_profile.js') }}"
+    });
+    {{ ScyLabs_showHook(_self,'ScyLabsUserBundle.afterScriptLoader') | raw }}
+
 {% endblock %}
