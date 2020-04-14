@@ -14,7 +14,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use ScyLabs\GiftCodeBundle\Entity\Address;
 use ScyLabs\NeptuneBundle\Services\ClassFounder;
 use ScyLabs\UserProfileBundle\Form\EditUserType;
-use ScyLabs\UserProfileBundle\Model\NeptuneFrontVarsFounderInterface;
+
 use Symfony\Component\HttpFoundation\Request;
 
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -23,6 +23,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManager;
 
 
 use FOS\UserBundle\Model\UserManagerInterface;
+use ScyLabs\NeptuneBundle\Model\NeptuneFrontVarsInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 use Symfony\Component\Routing\Annotation\Route;
@@ -50,7 +51,7 @@ class SecurityController extends \FOS\UserBundle\Controller\SecurityController
     /**
      * @Route("/login",name="fos_user_security_login")
      */
-    public function login(Request $request,NeptuneFrontVarsFounderInterface $neptuneFrontVarsFounder)
+    public function login(Request $request,NeptuneFrontVarsInterface $neptuneFrontVarsFounder)
     {
 
         /** @var $session Session */
@@ -117,7 +118,7 @@ class SecurityController extends \FOS\UserBundle\Controller\SecurityController
      * @Route("/profile/edit",name="fos_user_profile_edit")
      * @Secure("is_granted('ROLE_USER')")
      */
-    public function edit(Request $request,NeptuneFrontVarsFounderInterface $neptuneFrontVarsFounder){
+    public function edit(Request $request,NeptuneFrontVarsInterface $neptuneFrontVarsFounder){
 
         $form = $this->createForm(EditUserType::class,$this->getUser());
 

@@ -11,7 +11,7 @@ namespace ScyLabs\UserProfileBundle\Controller;
 
 use FOS\UserBundle\Model\UserInterface;
 use ScyLabs\NeptuneBundle\Manager\HookManager;
-use ScyLabs\UserProfileBundle\Model\NeptuneFrontVarsFounderInterface;
+use ScyLabs\NeptuneBundle\Model\NeptuneFrontVarsInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,7 +23,7 @@ class ProfileController extends AbstractController
      * @Route("/profile",name="fos_user_profile_show")
      * @Security("is_granted('ROLE_USER')")
      */
-    public function showAction(Request $request,NeptuneFrontVarsFounderInterface $neptuneFrontVarsFounder)
+    public function showAction(Request $request,NeptuneFrontVarsInterface $neptuneFrontVarsFounder)
     {
         $user = $this->getUser();
 

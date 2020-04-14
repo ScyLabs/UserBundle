@@ -17,7 +17,11 @@
 
 {% endblock content %}
 {% block css %}
-    <link rel="stylesheet/less" href="{{ asset('bundles/scylabsuserprofile/css/user_profile.less') }}"/>
+    {% if app.environment == 'prod' %}
+        <link rel="stylesheet/less" href="{{ asset('bundles/scylabsuserprofile/css/user_profile.css') }}"/>
+    {% else %}
+        <link rel="stylesheet/less" href="{{ asset('bundles/scylabsuserprofile/css/user_profile.less') }}"/>
+    {% endif %}
     {{ ScyLabs_showHook(_self,'ScyLabsUserBundle.head_assets') | raw }}
 {% endblock %}
 {% block afterScriptLoader %}

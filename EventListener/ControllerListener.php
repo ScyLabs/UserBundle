@@ -16,7 +16,7 @@ use FOS\UserBundle\Controller\ResettingController;
 use FOS\UserBundle\Controller\SecurityController;
 use ScyLabs\GiftCodeBundle\Hook\ProfileBoxesHook;
 use ScyLabs\NeptuneBundle\Manager\HookManager;
-use ScyLabs\UserProfileBundle\Model\NeptuneFrontVarsFounderInterface;
+use ScyLabs\NeptuneBundle\Model\NeptuneFrontVarsInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
@@ -43,7 +43,7 @@ class ControllerListener
     private $container;
 
     const CONTROLLERS = [RegistrationController::class,SecurityController::class,ProfileController::class,ResettingController::class];
-    public function __construct( Environment $twig, EntityManagerInterface $manager, Security $security ,NeptuneFrontVarsFounderInterface $neptuneFrontVarsFounder,ContainerInterface $container) {
+    public function __construct( Environment $twig, EntityManagerInterface $manager, Security $security ,NeptuneFrontVarsInterface $neptuneFrontVarsFounder,ContainerInterface $container) {
         $this->twig     = $twig;
         $this->manager  = $manager;
         $this->security = $security;
