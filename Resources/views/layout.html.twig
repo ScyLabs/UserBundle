@@ -18,7 +18,7 @@
 {% endblock content %}
 {% block css %}
     {% if app.environment == 'prod' %}
-        <link rel="stylesheet/less" href="{{ asset('bundles/scylabsuserprofile/css/user_profile.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('bundles/scylabsuserprofile/css/user_profile.css') }}"/>
     {% else %}
         <link rel="stylesheet/less" href="{{ asset('bundles/scylabsuserprofile/css/user_profile.less') }}"/>
     {% endif %}
