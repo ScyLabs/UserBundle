@@ -19,8 +19,5 @@ services:
         tags:
             - { name: kernel.event_listener,event: kernel.controller }
 
-    ScyLabs\GiftCodeBundle\EventListener\SupplementTwigInjectorListener:
-            tags:
-                - { name: kernel.event_listener,event: kernel.controller }
 
 

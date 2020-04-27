@@ -15,7 +15,7 @@
             <div class="form-group">
                 <label for="password">{{ 'security.login.password'|trans }}</label>
                 <input type="password" id="password" name="_password" required="required" autocomplete="current-password" />
-                <button data-hidden="{{ 'Montrer' | trans }}" data-showed="{{ 'Cacher' | trans }}" class="switchPassWord"></button>
+
             </div>
             {% if error %}
                 <div class="error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
