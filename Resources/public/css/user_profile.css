@@ -1,18 +1,6 @@
 #user-profile-container {
   padding: 5rem;
 }
-#user-profile-container [type="submit"] {
-  padding: 1rem 2rem;
-  font-size: 1.4rem;
-  text-transform: uppercase;
-  border: none;
-  display: block;
-  background: #2196F3;
-  color: #fff;
-  letter-spacing: 0.1em;
-  margin: 1rem auto;
-  cursor: pointer;
-}
 #user-profile-container > .box {
   padding: 2rem;
   border: 1px solid #ededed;
@@ -64,6 +52,18 @@
 #user-profile-container > .box form .passwordRequest {
   display: block;
   text-align: center;
+}
+#user-profile-container > .box form input[type="submit"] {
+  padding: 1rem 2rem;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  border: none;
+  display: block;
+  background: #2196F3;
+  color: #fff;
+  letter-spacing: 0.1em;
+  margin: 1rem auto;
+  cursor: pointer;
 }
 #user-profile-container > .box form #fos_user_registration_form > div label,
 #user-profile-container > .box form > div:not(#fos_user_registration_form) label {
@@ -187,4 +187,9 @@ label .slider.round {
 }
 label .slider.round:before {
   border-radius: 50%;
+}
+@media screen and (max-width: 599px) {
+  #user-profile-container {
+    padding: 2rem;
+  }
 }
