@@ -1,7 +1,7 @@
 {
     "name": "scylabs/user-profile",
     "description": "Module utilisateur",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "type": "symfony-bundle",
     "authors": [
         {
