@@ -23,7 +23,7 @@ use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\Security\Core\Security;
 use Twig\Environment;
 
-class ControllerListener
+class NeptuneVarsInjectorControllerListener
 {
     /**
      * @var \Twig\Environment

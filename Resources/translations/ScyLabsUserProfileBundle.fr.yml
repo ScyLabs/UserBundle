@@ -1,12 +1,15 @@
 login.password_lost: Mot de passe oublié  ?
 
 fos_user_security_login: Se connecter
-fos_user_registration_register: S'inscrire
+fos_user_registration_register_lang: S'inscrire
 fos_user_registration_confirmed: Inscription confirmée
 fos_user_profile_show: Votre espace personnel
 fos_user_profile_edit: Modifier ses informations
+fos_user_security_login_front: Connexion
 
-
+login_form:
+    login: Se connecter
+    register: S'inscrire
 
 group:
     edit:

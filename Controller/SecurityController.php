@@ -29,6 +29,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Yaml\Yaml;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security as Secure;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class SecurityController extends \FOS\UserBundle\Controller\SecurityController
 {
@@ -49,9 +50,9 @@ class SecurityController extends \FOS\UserBundle\Controller\SecurityController
 
 
     /**
-     * @Route("/login",name="fos_user_security_login")
+     * @Route("/{_locale}/login",name="fos_user_security_login_front")
      */
-    public function login(Request $request,NeptuneFrontVarsInterface $neptuneFrontVarsFounder)
+    public function login(Request $request,NeptuneFrontVarsInterface $neptuneFrontVarsFounder,RequestStack $requestStack)
     {
 
         /** @var $session Session */
@@ -60,24 +61,7 @@ class SecurityController extends \FOS\UserBundle\Controller\SecurityController
 
         $authErrorKey = Security::AUTHENTICATION_ERROR;
         $lastUsernameKey = Security::LAST_USERNAME;
-
-        $target = $request->getSession()->get('_security.main.target_path');
-        if(null !== $target && !($request->attributes->has($authErrorKey) || (null !== $session && $session->has($authErrorKey)))){
-            $targetDate = $request->getSession()->get('_security.main.target_date');
-            if(null !== $targetDate && preg_match('/\/admin/Ui',$target)){
-                $now = new \DateTime('now');
-                $limit = $targetDate->add(new \DateInterval('PT2S'));
-                if($now > $limit){
-                    $request->getSession()->remove('_security.main.target_date');
-                    $request->getSession()->remove('_security.main.target_path');
-                    $target = null;
-                }
-            }
-            if(preg_match('/\/admin/Ui',$target)){
-                $request->getSession()->set('_security.main.target_date',new \DateTime());
-            }
-        }
-
+        
         // get the error if any (works with forward and redirect -- see below)
         if ($request->attributes->has($authErrorKey)) {
             $error = $request->attributes->get($authErrorKey);
@@ -111,11 +95,24 @@ class SecurityController extends \FOS\UserBundle\Controller\SecurityController
 
         ];
 
-        return $this->renderLogin(array_merge($params,$neptuneFrontVarsFounder->getVars($request)));
+        $user = $this->userManager->createUser();
+        $user->setEnabled(true);
+
+        
+        $isSubRequest = $requestStack->getParentRequest() !== null;
+        
+        $params['registrationForm'] = ($isSubRequest) ? null :  $this->forward(RegistrationController::class.'::registerAction',[
+            '_locale'   =>  $request->getLocale()
+        ]);
+        $params['isSubRequest'] = $isSubRequest;
+        
+        
+        return $this->render('@ScyLabsUserProfile/login.html.twig',array_merge($params,$neptuneFrontVarsFounder->getVars($request)));
+        
     }
 
     /**
-     * @Route("/profile/edit",name="fos_user_profile_edit")
+     * @Route("/{_locale}/profile/edit",name="fos_user_profile_edit")
      * @Secure("is_granted('ROLE_USER')")
      */
     public function edit(Request $request,NeptuneFrontVarsInterface $neptuneFrontVarsFounder){

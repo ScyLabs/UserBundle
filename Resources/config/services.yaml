@@ -15,9 +15,13 @@ services:
         resource: '../../Controller'
         tags: ['controller.service_arguments']
 
-    ScyLabs\UserProfileBundle\EventListener\ControllerListener:
+    ScyLabs\UserProfileBundle\EventListener\NeptuneVarsInjectorControllerListener:
         tags:
             - { name: kernel.event_listener,event: kernel.controller }
+
+    ScyLabs\UserProfileBundle\Controller\RegistrationController:
+        arguments:
+            - '@fos_user.registration.form.factory'
 
 
 

@@ -1,20 +1,11 @@
 (function(){
-    document.addEventListener("DOMContentLoaded", function(event) {
-        var container = document.getElementById('user-profile-container');
-
-        if(container.querySelectorAll('.switchPassWord').length){
-
-            container.querySelector('.switchPassWord').onclick = function(e){
-                e.preventDefault();
-                this.classList.toggle('active');
-                let passwordInput = this.parentNode.querySelector('input#password');
-
-                if('password' === passwordInput.getAttribute('type')){
-                    passwordInput.setAttribute('type','text');
-                }else{
-                    passwordInput.setAttribute('type','password');
-                }
-            }
-        }
-    });
-})();
+    $('.login_register_forms').on('click','.tabs li:not(.active)',function(){
+        var tabs = $(this).parents('.tabs');
+        var login_register_forms = $(this).parents('.login_register_forms');
+ 
+        tabs.find('li').removeClass('active');
+        $(this).addClass('active');
+        login_register_forms.find('.tab').removeClass('active');
+        login_register_forms.find('.tab[data-index='+$(this).data('index')+']').addClass('active');
+    })
+ })();

@@ -34,6 +34,8 @@ class RegistrationType extends AbstractType
     }
 
     public function buildForm(FormBuilderInterface $builder,array $options){
+
+        $builder->setAction($options['action']);
         $builder
             ->add('name',TextType::class,[
                 'translation_domain'    => 'ScyLabsUserProfileBundle',
@@ -84,6 +86,7 @@ class RegistrationType extends AbstractType
         $resolver->setDefaults([
             'action' => null,
             'data_class' => User::class,
+            'default_trans_domain'  =>  'ScyLabsUserProfileBundle'
         ])
         ;
     }

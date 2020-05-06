@@ -20,7 +20,7 @@ class ProfileController extends AbstractController
 {
 
     /**
-     * @Route("/profile",name="fos_user_profile_show")
+     * @Route("/{_locale}/profile",name="fos_user_profile_show",defaults={"_locale":"fr"})
      * @Security("is_granted('ROLE_USER')")
      */
     public function showAction(Request $request,NeptuneFrontVarsInterface $neptuneFrontVarsFounder)

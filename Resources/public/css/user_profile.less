@@ -1,5 +1,37 @@
 #user-profile-container{
   padding:5rem;
+  .login_register_forms{
+    max-width: 60rem;
+    margin:0 auto;
+    .tabs{
+      display: flex;
+      font-size: 2rem;
+      text-transform: uppercase;
+      display: flex;
+      margin-bottom: 5rem;
+      li{
+        padding:1.5rem 2rem;
+        width: 50%;
+        text-align: center;
+      
+        color:#999;
+        cursor:pointer;
+      }
+      li.active{
+    
+        border:1px solid #000;
+        border-bottom: none;
+        color:#000;
+      }
+      li:not(.active){
+        border-bottom: 1px solid #000;
+      }
+
+    }
+    .tab:not(.active){
+      display: none;
+    }
+  }
   > .box{
     padding:2rem;
     border:1px solid #ededed;
@@ -54,7 +86,7 @@
         text-align: center;
       }
 
-      input[type="submit"]{
+      [type="submit"]{
         padding:1rem 2rem;
         font-size: 1.4rem;
         text-transform: uppercase;

@@ -1,0 +1,40 @@
+{% extends isSubRequest ? '@ScyLabsUserProfile/empty.html.twig' : "@ScyLabsUserProfile/layout.html.twig" %}
+{% trans_default_domain 'ScyLabsUserProfileBundle' %}
+
+{% block content_profile %}
+
+    {% if isSubRequest %}
+        {{ form_start(form, {'method': 'post', 'attr': {'class': 'fos_user_registration_register'}}) }}
+        {{ form_widget(form) }}
+        <div>
+            <input type="submit" value="{{ 'registration.submit'|trans }}" />
+        </div>
+        {{ form_end(form) }}
+    {% else %}
+        
+        <div class="containers_forms">
+            <div class="login_register_forms">
+            
+                {% if not isSubRequest %}
+                    <ul class="tabs">
+                        <li data-index="0" >{{ 'login_form.login' | trans }}</li>
+                        <li data-index="1" class="active">{{ 'login_form.register' | trans }}</li>
+                    </ul>
+                {% endif %}
+                <div class="form tab" data-index="0">
+                    {{ loginForm.content | raw }}
+                </div>
+                <div class="tab active" data-index="1">
+                    {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+                        {{ form_widget(form) }}
+                        <div>
+                            <input type="submit" value="{{ 'registration.submit'|trans }}" />
+                        </div>
+                    {{ form_end(form) }}
+                </div>
+            
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock content_profile %}
