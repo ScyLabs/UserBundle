@@ -5,8 +5,9 @@ fos_user_registration_register_lang: S'inscrire
 fos_user_registration_confirmed: Inscription confirmée
 fos_user_profile_show: Votre espace personnel
 fos_user_profile_edit: Modifier ses informations
-fos_user_security_login_front: Connexion
-
+login: Connexion
+fos_user_resetting_request: Réinitialiser son mot de passe
+fos_user_resetting_check_email: Demande de réinitialisation bien prise en compte
 login_form:
     login: Se connecter
     register: S'inscrire
@@ -24,7 +25,7 @@ group:
         deleted: 'Le groupe a été supprimé.'
 security:
     login:
-        username: 'Nom d''utilisateur'
+        username: Nom d'utilisateur
         password: 'Mot de passe'
         remember_me: 'Se souvenir de moi'
         submit: Connexion

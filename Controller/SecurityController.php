@@ -50,7 +50,7 @@ class SecurityController extends \FOS\UserBundle\Controller\SecurityController
 
 
     /**
-     * @Route("/{_locale}/login",name="fos_user_security_login_front")
+     * @Route("/{_locale}/login",name="login")
      */
     public function login(Request $request,NeptuneFrontVarsInterface $neptuneFrontVarsFounder,RequestStack $requestStack)
     {

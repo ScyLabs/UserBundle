@@ -27,7 +27,7 @@ class RegistrationController extends AbstractController {
     }
     
     /**
-     * @Route("/{_locale}/register",name="fos_user_registration_register_lang")
+     * @Route("/{_locale}/register",name="register")
      */
     public function registerAction(Request $request,UserManagerInterface $userManager, EventDispatcherInterface $eventDispatcher,NeptuneFrontVarsInterface $netuneFrontVars,RequestStack $requestStack)
     {
