@@ -43,7 +43,7 @@ class RegistrationController extends AbstractController {
         }
 
         $form = $this->formFactory->createForm([
-            'action'    =>  $this->generateUrl('fos_user_registration_register_lang',[
+            'action'    =>  $this->generateUrl('register',[
                 '_locale'    =>  $request->getLocale()
             ])
         ]);
