@@ -1,9 +1,11 @@
 #user-profile-container {
   padding: 5rem;
-}
-#user-profile-container .login_register_forms {
   max-width: 60rem;
   margin: 0 auto;
+}
+#user-profile-container h1 {
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
 }
 #user-profile-container .login_register_forms .tabs {
   font-size: 2rem;
@@ -31,7 +33,6 @@
 }
 #user-profile-container > .box {
   padding: 2rem;
-  border: 1px solid #ededed;
 }
 #user-profile-container > .box > .cats {
   display: flex;
