@@ -2,7 +2,7 @@
 {% trans_default_domain 'ScyLabsUserProfileBundle' %}
 
 {% block content %}
-    <div id="user-profile-container">
+    <div id="user-profile-container" class="{% block user_profile_add_classes %}{% endblock %}">
 
         <h1>{% block title %}{{  app.request.get('_route') | trans }}{% endblock title %}</h1>
         <div class="box">
