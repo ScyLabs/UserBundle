@@ -1,10 +1,10 @@
 {% extends "layout.html.twig" %}
-{% trans_default_domain 'ScyLabsUserProfileBundle' %}
+{% trans_default_domain 'ScyLabsUserBundle' %}
 
 {% block content %}
     <div id="user-profile-container">
 
-        <h1>{% block title %}{{  app.request.get('_route') | trans }}{% endblock title %}</h1>
+        <h1>{% block title %}{{  'route_' ~ app.request.get('_route') | trans }}{% endblock title %}</h1>
         <div class="box">
 
             {% block content_profile %}
@@ -19,15 +19,15 @@
     
 {% block css %}
     {% if app.environment == 'prod' %}
-        <link rel="stylesheet" href="{{ asset('bundles/scylabsuserprofile/css/user_profile.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('bundles/scylabsuser/css/user_profile.css') }}"/>
     {% else %}
-        <link rel="stylesheet/less" href="{{ asset('bundles/scylabsuserprofile/css/user_profile.less') }}"/>
+        <link rel="stylesheet/less" href="{{ asset('bundles/scylabsuser/css/user_profile.less') }}"/>
     {% endif %}
     {{ ScyLabs_showHook(_self,'ScyLabsUserBundle.head_assets') | raw }}
 {% endblock %}
 {% block afterScriptLoader %}
     scriptLoader.add({
-        src: "{{ asset('bundles/scylabsuserprofile/js/user_profile.js') }}"
+        src: "{{ asset('bundles/scylabsuser/js/user_profile.js') }}"
     });
     {{ ScyLabs_showHook(_self,'ScyLabsUserBundle.afterScriptLoader') | raw }}
 

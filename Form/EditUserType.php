@@ -6,11 +6,11 @@
  * Time: 14:25
  */
 
-namespace ScyLabs\UserProfileBundle\Form;
+namespace ScyLabs\UserBundle\Form;
 
 
 use FOS\UserBundle\Form\Type\UsernameFormType;
-use ScyLabs\NeptuneBundle\Entity\User;
+use ScyLabs\UserBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -52,7 +52,7 @@ class EditUserType extends AbstractType
         $resolver->setDefaults([
             'action' => null,
             'data_class' => User::class,
-            'translation_domain'    =>  'ScyLabsUserProfileBundle',
+            'translation_domain'    =>  'ScyLabsUserBundle',
         ]);
     }
 }

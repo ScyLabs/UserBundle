@@ -6,7 +6,7 @@
  * Time: 11:43
  */
 
-namespace ScyLabs\UserProfileBundle\DependencyInjecton;
+namespace ScyLabs\UserBundle\DependencyInjecton;
 
 
 

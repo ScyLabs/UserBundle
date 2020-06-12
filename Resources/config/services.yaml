@@ -5,23 +5,22 @@ services:
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
         public: true
 
-    ScyLabs\UserProfileBundle\:
+    ScyLabs\UserBundle\:
         resource: '../../*'
         exclude: '../../{Entity,Migrations,Tests,Kernel.php}'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
-    ScyLabs\UserProfileBundle\Controller\:
+    ScyLabs\UserBundle\Controller\:
         resource: '../../Controller'
         tags: ['controller.service_arguments']
 
-    ScyLabs\UserProfileBundle\EventListener\NeptuneVarsInjectorControllerListener:
+    ScyLabs\UserBundle\EventListener\NeptuneVarsInjectorControllerListener:
         tags:
             - { name: kernel.event_listener,event: kernel.controller }
+        calls:
+            - [ setContainer, [ '@service_container']]
 
-    ScyLabs\UserProfileBundle\Controller\RegistrationController:
-        arguments:
-            - '@fos_user.registration.form.factory'
 
 
 

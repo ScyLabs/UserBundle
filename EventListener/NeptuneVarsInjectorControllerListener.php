@@ -6,7 +6,7 @@
  * Time: 12:00
  */
 
-namespace ScyLabs\UserProfileBundle\EventListener;
+namespace ScyLabs\UserBundle\EventListener;
 
 
 use Doctrine\ORM\EntityManagerInterface;
@@ -17,14 +17,17 @@ use FOS\UserBundle\Controller\SecurityController;
 use ScyLabs\GiftCodeBundle\Hook\ProfileBoxesHook;
 use ScyLabs\NeptuneBundle\Manager\HookManager;
 use ScyLabs\NeptuneBundle\Model\NeptuneFrontVarsInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\Security\Core\Security;
 use Twig\Environment;
 
-class NeptuneVarsInjectorControllerListener
+class NeptuneVarsInjectorControllerListener implements ContainerAwareInterface
 {
+    use ContainerAwareTrait;
     /**
      * @var \Twig\Environment
      */
@@ -40,17 +43,13 @@ class NeptuneVarsInjectorControllerListener
 
     private $neptuneFrontVarsFounder;
 
-    private $container;
 
     const CONTROLLERS = [RegistrationController::class,SecurityController::class,ProfileController::class,ResettingController::class];
-    public function __construct( Environment $twig, EntityManagerInterface $manager, Security $security ,NeptuneFrontVarsInterface $neptuneFrontVarsFounder,ContainerInterface $container) {
+    public function __construct( Environment $twig, EntityManagerInterface $manager, Security $security ,NeptuneFrontVarsInterface $neptuneFrontVarsFounder) {
         $this->twig     = $twig;
         $this->manager  = $manager;
         $this->security = $security;
         $this->neptuneFrontVarsFounder = $neptuneFrontVarsFounder;
-        $this->container = $container;
-
-
     }
     public function onKernelController( ControllerEvent $event ): void {
         $controller = (is_array($event->getController())) ? $event->getController()[0] : $event->getController();

@@ -1,21 +1,31 @@
-{% extends isSubRequest ? '@ScyLabsUserProfile/empty.html.twig' : "@ScyLabsUserProfile/layout.html.twig" %}
-{% trans_default_domain 'ScyLabsUserProfileBundle' %}
+{% extends isSubRequest ? '@ScyLabsUser/empty.html.twig' : "@ScyLabsUser/layout.html.twig" %}
+{% trans_default_domain 'ScyLabsUserBundle' %}
 
 {% import _self as macros %}
-{% macro showForm(last_username,error,csrf_token,locale) %}
+{% macro showForm(last_username,error,locale) %}
     <form action="{{ path("login",{"_locale":locale}) }}" method="post">
         <div class="form-group">
             <label for="username">{{ 'security.login.username'|trans }}</label>
-            <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" autocomplete="username" />
+            <input type="text" id="username" name="email" value="{{ last_username }}" required="required" autocomplete="username" />
         </div>
         <div class="form-group">
             <label for="password">{{ 'security.login.password'|trans }}</label>
-            <input type="password" id="password" name="_password" required="required" autocomplete="current-password" />
+            <input type="password" id="password" name="password" required="required" autocomplete="current-password" />
+       
 
         </div>
-        {% if error %}
-            <div class="error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+         {% if error %}
+            <div class="form-group">
+                <div class="error">
+                    {{ error.messageKey|trans(error.messageData) }}
+                    {% if error.message  == 'security.login.not_activated' %}
+                        <br/>{{ 'security.login.not_found_email' | trans  }} <a href="">{{ 'security.login.resend_mail' | trans }}</a>
+                    {% endif %}
+                </div>
+               
+            </div>
         {% endif %}
+        
         <div class="form-group remember_group">
             <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
 
@@ -26,12 +36,10 @@
                 </span>
             </label>
         </div>
-        <a href="{{ path('fos_user_resetting_request') }}" class="passwordRequest">{{ "login.password_lost" | trans}}</a>
-        <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
 
-        {% if csrf_token %}
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-        {% endif %}
+        <a href="#" class="passwordRequest">{{ "login.password_lost" | trans}}</a>
+        <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
     </form>
 {% endmacro %}
 {% block content_profile %}
@@ -46,15 +54,16 @@
                     </ul>
             
                 <div class="active tab" data-index="0">
-                    {{ macros.showForm(last_username,error,csrf_token,locale) }}
+                    {{ macros.showForm(last_username,error,locale) }}
+
 
                 </div>
                 <div class="tab" data-index="1">
-                {{ registrationForm.content | raw }}
+                    {{ registrationForm.content | raw }}
                 </div>
             </div>
         </div>
     {% else %}
-        {{ macros.showForm(last_username,error,csrf_token,locale) }}
+        {{ macros.showForm(last_username,error,locale) }}
     {% endif %}
 {% endblock content_profile %}

@@ -6,7 +6,7 @@
  * Time: 15:19
  */
 
-namespace ScyLabs\UserProfileBundle\Twig;
+namespace ScyLabs\UserBundle\Twig;
 
 
 use Twig\Extension\AbstractExtension;

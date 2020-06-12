@@ -1,5 +1,5 @@
-{% extends isSubRequest ? '@ScyLabsUserProfile/empty.html.twig' : "@ScyLabsUserProfile/layout.html.twig" %}
-{% trans_default_domain 'ScyLabsUserProfileBundle' %}
+{% extends isSubRequest ? '@ScyLabsUser/empty.html.twig' : "@ScyLabsUser/layout.html.twig" %}
+{% trans_default_domain 'ScyLabsUserBundle' %}
 
 {% block content_profile %}
 
@@ -25,15 +25,19 @@
                     {{ loginForm.content | raw }}
                 </div>
                 <div class="tab active" data-index="1">
-                    {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+                    {{ form_start(form, {'method': 'post', 'attr': {'class': 'fos_user_registration_register'}}) }}
                         {{ form_widget(form) }}
                         <div>
                             <input type="submit" value="{{ 'registration.submit'|trans }}" />
                         </div>
                     {{ form_end(form) }}
+                     {% for flashError in app.flashes('verify_email_error') %}
+                        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+                    {% endfor %}
                 </div>
             
             </div>
+           
         </div>
     {% endif %}
 

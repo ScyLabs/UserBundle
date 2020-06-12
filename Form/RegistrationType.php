@@ -6,11 +6,11 @@
  * Time: 11:28
  */
 
-namespace ScyLabs\UserProfileBundle\Form;
+namespace ScyLabs\UserBundle\Form;
 
 
 use FOS\UserBundle\Form\Type\RegistrationFormType;
-use ScyLabs\NeptuneBundle\Entity\User;
+use ScyLabs\UserBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -38,15 +38,15 @@ class RegistrationType extends AbstractType
         $builder->setAction($options['action']);
         $builder
             ->add('name',TextType::class,[
-                'translation_domain'    => 'ScyLabsUserProfileBundle',
+                'translation_domain'    => 'ScyLabsUserBundle',
                 'label' =>  'form.name'
             ])
             ->add('firstname',TextType::class,[
-                'translation_domain'    => 'ScyLabsUserProfileBundle',
+                'translation_domain'    => 'ScyLabsUserBundle',
                 'label' =>  'form.firstname'
             ])
             ->add('email', RepeatedType::class, array(
-                'translation_domain'    => 'ScyLabsUserProfileBundle',
+                'translation_domain'    => 'ScyLabsUserBundle',
                 'first_options' => array('label' => 'form.email'),
                 'second_options' => array('label' => 'form.email_confirmation'),
                 'constraints'          =>  [
@@ -56,7 +56,7 @@ class RegistrationType extends AbstractType
             ->add('plainPassword', RepeatedType::class, array(
                 'type' => PasswordType::class,
                 'options' => array(
-                    'translation_domain'    => 'ScyLabsUserProfileBundle',
+                    'translation_domain'    => 'ScyLabsUserBundle',
                     'attr' => array(
                         'autocomplete' => 'new-password',
                     ),
@@ -86,7 +86,7 @@ class RegistrationType extends AbstractType
         $resolver->setDefaults([
             'action' => null,
             'data_class' => User::class,
-            'default_trans_domain'  =>  'ScyLabsUserProfileBundle'
+            'default_trans_domain'  =>  'ScyLabsUserBundle'
         ])
         ;
     }

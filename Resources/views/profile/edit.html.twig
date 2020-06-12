@@ -1,5 +1,5 @@
-{% extends '@ScyLabsUserProfile/layout.html.twig' %}
-{% trans_default_domain 'ScyLabsUserProfileBundle' %}
+{% extends '@ScyLabsUser/layout.html.twig' %}
+{% trans_default_domain 'ScyLabsUserBundle' %}
 {% block content_profile %}
     {{ ScyLabs_showHook(_self,'scy_labs.user.edit.before_form') | raw }}
     {{ form_start(form) }}

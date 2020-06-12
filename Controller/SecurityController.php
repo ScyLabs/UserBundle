@@ -6,14 +6,14 @@
  * Time: 17:11
  */
 
-namespace ScyLabs\UserProfileBundle\Controller;
+namespace ScyLabs\UserBundle\Controller;
 
 
 use Doctrine\Common\Collections\ArrayCollection;
 
 use ScyLabs\GiftCodeBundle\Entity\Address;
 use ScyLabs\NeptuneBundle\Services\ClassFounder;
-use ScyLabs\UserProfileBundle\Form\EditUserType;
+use ScyLabs\UserBundle\Form\EditUserType;
 
 use Symfony\Component\HttpFoundation\Request;
 
@@ -22,16 +22,17 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Csrf\CsrfTokenManager;
 
 
-use FOS\UserBundle\Model\UserManagerInterface;
 use ScyLabs\NeptuneBundle\Model\NeptuneFrontVarsInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Yaml\Yaml;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security as Secure;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-class SecurityController extends \FOS\UserBundle\Controller\SecurityController
+class SecurityController extends AbstractController
 {
 
     private $eventDispatcher;
@@ -39,12 +40,10 @@ class SecurityController extends \FOS\UserBundle\Controller\SecurityController
     private $userManager;
     private $tokenManager;
 
-    public function __construct(EventDispatcherInterface $eventDispatcher, UserManagerInterface $userManager,CsrfTokenManager $tokenManager = null)
+    public function __construct(EventDispatcherInterface $eventDispatcher,CsrfTokenManager $tokenManager = null)
     {
-        parent::__construct($tokenManager);
         $this->tokenManager = $tokenManager;
         $this->eventDispatcher = $eventDispatcher;
-        $this->userManager = $userManager;
 
     }
 
@@ -52,65 +51,43 @@ class SecurityController extends \FOS\UserBundle\Controller\SecurityController
     /**
      * @Route("/{_locale}/login",name="login")
      */
-    public function login(Request $request,NeptuneFrontVarsInterface $neptuneFrontVarsFounder,RequestStack $requestStack)
+    public function login(AuthenticationUtils $authenticationUtils,Request $request,NeptuneFrontVarsInterface $neptuneFrontVarsFounder,RequestStack $requestStack)
     {
 
-        /** @var $session Session */
+         if ($this->getUser()) {
+             return $this->redirectToRoute('profile',['_locale'=>$request->getLocale()]);
+         }
 
-        $session = $request->getSession();
-
-        $authErrorKey = Security::AUTHENTICATION_ERROR;
-        $lastUsernameKey = Security::LAST_USERNAME;
-        
-        // get the error if any (works with forward and redirect -- see below)
-        if ($request->attributes->has($authErrorKey)) {
-            $error = $request->attributes->get($authErrorKey);
-        } elseif (null !== $session && $session->has($authErrorKey)) {
-            $error = $session->get($authErrorKey);
-            $session->remove($authErrorKey);
-        } else {
-            $error = null;
-        }
-
-        if (!$error instanceof AuthenticationException) {
-            $error = null; // The value does not come from the security component.
-        }
-
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
-        $lastUsername = (null === $session) ? '' : $session->get($lastUsernameKey);
-
-        $csrfToken = $this->tokenManager
-            ? $this->tokenManager->getToken('authenticate')->getValue()
-            : null;
-
-        $em = $this->getDoctrine()->getManager();
+        $lastUsername = $authenticationUtils->getLastUsername();
 
 
-
-        $params = [
-            'admin' =>   $request->getSession()->get('_security.main.target_admin'),
-            'last_username' => $lastUsername,
-            'error' => $error,
-            'csrf_token' => $csrfToken,
-
-        ];
-
-        $user = $this->userManager->createUser();
-        $user->setEnabled(true);
-
-        
         $isSubRequest = $requestStack->getParentRequest() !== null;
         
-        $params['registrationForm'] = ($isSubRequest) ? null :  $this->forward(RegistrationController::class.'::registerAction',[
-            '_locale'   =>  $request->getLocale()
-        ]);
-        $params['isSubRequest'] = $isSubRequest;
+        $params = [
+            'last_username'     => $lastUsername, 
+            'error'             => $error,
+            'isSubRequest'      => $isSubRequest,
+            'registrationForm'  => ($isSubRequest) ? null :  $this->forward(RegistrationController::class.'::registerAction',[
+                '_locale'   =>  $request->getLocale()
+            ]),
+
+        ];
         
         
-        return $this->render('@ScyLabsUserProfile/login.html.twig',array_merge($params,$neptuneFrontVarsFounder->getVars($request)));
+        return $this->render('@ScyLabsUser/login.html.twig',array_merge($params,$neptuneFrontVarsFounder->getVars($request)));
         
     }
 
+    /**
+     * @Route("/logout", name="logout")
+     */
+    public function logout()
+    {
+        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+    }
     /**
      * @Route("/{_locale}/profile/edit",name="fos_user_profile_edit")
      * @Secure("is_granted('ROLE_USER')")
@@ -119,7 +96,7 @@ class SecurityController extends \FOS\UserBundle\Controller\SecurityController
 
         $form = $this->createForm(EditUserType::class,$this->getUser());
 
-        return $this->render('@ScyLabsUserProfile/profile/edit.html.twig',array_merge([
+        return $this->render('@ScyLabsUser/profile/edit.html.twig',array_merge([
             'form'  =>  $form->createView()
         ],$neptuneFrontVarsFounder->getVars($request)));
 
